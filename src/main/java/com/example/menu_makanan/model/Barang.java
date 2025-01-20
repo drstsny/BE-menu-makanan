@@ -11,11 +11,11 @@ public class Barang {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nama_barang")
+    @Column(name = "nama_barang" , nullable = false)
     private String nama_barang;
 
 
-    @Column(name = "stok_barang")
+    @Column(name = "stok_barang" , nullable = false)
     private Long stok_barang;
 
     @Column(name = "deskripsi_barang")
@@ -27,8 +27,12 @@ public class Barang {
     @Column(name = "tanggal_kadaluarsa")
     private Date tanggal_kadaluarsa;
 
-    @Column(name = "harga_barang")
+    @Column(name = "harga_barang" , nullable = false)
     private Float harga_barang;
+
+
+    @Column(name = "link_gambar")
+    private String link_gambar;
 
 
     public Long getId() {
@@ -81,5 +85,13 @@ public class Barang {
     }
     public void setHarga_barang(Float harga_barang) {
         this.harga_barang = harga_barang;
+    }
+
+    public String getLink_gambar() {
+        return link_gambar;
+    }
+
+    public void setLink_gambar(String link_gambar) {
+        this.link_gambar = link_gambar;
     }
 }

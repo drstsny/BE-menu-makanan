@@ -3,6 +3,8 @@ package com.example.menu_makanan.controller;
 import com.example.menu_makanan.model.Barang;
 import com.example.menu_makanan.service.BarangService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,9 +29,46 @@ public class BarangController {
     }
 
     @GetMapping
-    public List<Barang> getAll() {
-        return barangService.getAll();
+    public List<Barang> getAllBarang() {
+        return barangService.getAllBarang();
     }
+
+    @GetMapping("/makanan")
+    public List<Barang> getAllMakanan() {
+        return barangService.getAllMakanan();
+    }
+
+    @GetMapping("/minuman")
+    public List<Barang> getAllMinuman() {
+        return barangService.getAllMinuman();
+    }
+
+    @GetMapping("/makananRingan")
+    public  List<Barang> getAllMakanan_ringan() {
+        return barangService.getAllMakanan_ringan();
+    }
+
+    @PostMapping("/api/barang/buy/{id}")
+    public ResponseEntity<String> buyBarang(@PathVariable Long id, @RequestBody Map<String, Object> payload) {
+        if (!payload.containsKey("jumlah")) {
+            return ResponseEntity.badRequest().body("Key 'jumlah' tidak ditemukan dalam request.");
+        }
+
+        Integer jumlah = (Integer) payload.getOrDefault("jumlah", 0);
+        if (jumlah == 0) {
+            return ResponseEntity.badRequest().body("jumlah harus berupa angka positif.");
+        }
+
+        try {
+            barangService.buyBarang(id, jumlah);
+            return ResponseEntity.ok("Barang berhasil dibeli.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Terjadi kesalahan pada server.");
+        }
+    }
+
 
     @PutMapping("/{id}")
     public Barang edit(@PathVariable("id") Long id, @RequestBody Barang tugas) {

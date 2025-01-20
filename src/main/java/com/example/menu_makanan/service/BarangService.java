@@ -27,6 +27,7 @@ public class BarangService {
         barang.setJenis_barang(ad.getJenis_barang());
         barang.setNama_barang(ad.getNama_barang());
         barang.setStok_barang(ad.getStok_barang());
+        barang.setLink_gambar(ad.getLink_gambar());
         barang.setTanggal_kadaluarsa(ad.getTanggal_kadaluarsa());
 
         System.out.println("Sebelum save: " + barang);
@@ -39,8 +40,31 @@ public class BarangService {
         return barangRepo.findById(id).orElseThrow(() -> new NotFoundException("id Not Found"));
     }
 
-    public List<Barang> getAll() {
+    public List<Barang> getAllBarang() {
         return barangRepo.findAll();
+    }
+
+    public List<Barang> getAllMakanan() {
+        return barangRepo.findByJenis("makanan");
+    }
+
+    public List<Barang> getAllMinuman() {
+        return  barangRepo.findByJenis("minuman");
+    }
+
+    public List<Barang> getAllMakanan_ringan() {
+        return barangRepo.findByJenis(("makanan ringan"));
+    }
+
+    public void buyBarang(Long id , int jumlah) {
+        Barang barang = barangRepo.findById(id)
+                .orElseThrow(() ->new IllegalArgumentException("Barang tidak di temukan"));
+        if (barang.getStok_barang() < jumlah) {
+            throw new IllegalArgumentException("Stok Barang tidak mencukupi!");
+        }
+        barang.setStok_barang(barang.getStok_barang() - jumlah); {
+            barangRepo.save(barang);
+        };
     }
 
     public  Barang edit(Long id, Barang user) {
@@ -50,6 +74,7 @@ public class BarangService {
         update.setDeskripsi_barang(user.getDeskripsi_barang());
         update.setJenis_barang(user.getJenis_barang());
         update.setTanggal_kadaluarsa(user.getTanggal_kadaluarsa());
+        update.setLink_gambar(user.getLink_gambar());
         update.setHarga_barang(user.getHarga_barang());
         return barangRepo.save(update);
     }
