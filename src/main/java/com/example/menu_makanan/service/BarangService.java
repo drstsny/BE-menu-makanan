@@ -4,7 +4,6 @@ import com.example.menu_makanan.exception.NotFoundException;
 import com.example.menu_makanan.model.Barang;
 import com.example.menu_makanan.repository.BarangRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -54,6 +53,13 @@ public class BarangService {
 
     public List<Barang> getAllMakanan_ringan() {
         return barangRepo.findByJenis(("makanan ringan"));
+    }
+
+    public List<Barang> getBarangByNama_barang(String nama_barang) {
+        if (nama_barang == null || nama_barang.isEmpty()) {
+            return barangRepo.findAll(); // Jika nama_barang kosong, ambil semua data
+        }
+        return barangRepo.findByNama_barang(nama_barang); // Pencarian case-insensitive
     }
 
     public void buyBarang(Long id , int jumlah) {

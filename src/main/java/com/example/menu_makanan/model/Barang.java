@@ -64,7 +64,6 @@ public class Barang {
         this.deskripsi_barang = deskripsi_barang;
     }
 
-
     public String getJenis_barang() {
         return jenis_barang;
     }

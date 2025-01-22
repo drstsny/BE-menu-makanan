@@ -43,6 +43,16 @@ public class BarangController {
         return barangService.getAllMinuman();
     }
 
+    @GetMapping("/api/barang")
+    public ResponseEntity<?> getBarangByNama_barang(@RequestParam(required = false) String nama_barang) {
+        try {
+            List<Barang> result = barangService.getBarangByNama_barang(nama_barang);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Terjadi kesalahan pada server: " + e.getMessage());
+        }
+    }
+
     @GetMapping("/makananRingan")
     public  List<Barang> getAllMakanan_ringan() {
         return barangService.getAllMakanan_ringan();
@@ -68,8 +78,6 @@ public class BarangController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Terjadi kesalahan pada server.");
         }
     }
-
-
     @PutMapping("/{id}")
     public Barang edit(@PathVariable("id") Long id, @RequestBody Barang tugas) {
         return barangService.edit(id, tugas);
