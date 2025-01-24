@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/barang")
@@ -82,6 +83,9 @@ public class BarangController {
     public Barang edit(@PathVariable("id") Long id, @RequestBody Barang tugas) {
         return barangService.edit(id, tugas);
     }
+
+    @PostMapping("/{BarangId}")
+
 
     @DeleteMapping("/api/barang/{id}")
     public Map<String, Boolean> delete(@PathVariable("id")  Long id) {

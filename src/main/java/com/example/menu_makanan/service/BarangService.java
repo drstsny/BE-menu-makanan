@@ -5,10 +5,12 @@ import com.example.menu_makanan.model.Barang;
 import com.example.menu_makanan.repository.BarangRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class BarangService {
@@ -38,6 +40,7 @@ public class BarangService {
     public  Barang getById(Long id) {
         return barangRepo.findById(id).orElseThrow(() -> new NotFoundException("id Not Found"));
     }
+
 
     public List<Barang> getAllBarang() {
         return barangRepo.findAll();
@@ -95,4 +98,7 @@ public class BarangService {
             return null;
         }
     }
+
+
+
 }
