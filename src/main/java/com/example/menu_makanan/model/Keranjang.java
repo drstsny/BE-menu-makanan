@@ -19,6 +19,8 @@ public class Keranjang {
     @Column(nullable = false)
     private Float harga_barang;
 
+    @Column(nullable = false)
+    private String link_gambar;
 
     public Long getId() {
         return id;
@@ -50,6 +52,14 @@ public class Keranjang {
 
     public void setHarga_barang(float harga_barang) {
         this.harga_barang = harga_barang;
+    }
+
+    public String getLink_gambar() {
+        return link_gambar;
+    }
+
+    public void setLink_gambar(String link_gambar) {
+        this.link_gambar = link_gambar;
     }
 }
 

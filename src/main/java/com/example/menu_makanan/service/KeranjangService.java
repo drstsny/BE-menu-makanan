@@ -7,6 +7,9 @@ import com.example.menu_makanan.repository.KeranjangRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -16,6 +19,10 @@ public class KeranjangService {
 
     @Autowired
     private KeranjangRepository keranjangtRepo;
+
+    public List<Keranjang> getAllKeranjang() {
+        return keranjangtRepo.findAll();
+    }
 
     public Keranjang addBarangToKeranjang(Long barangId) {
         Optional<Barang> optionalBarang = barangRepo.findById(barangId);
@@ -29,6 +36,7 @@ public class KeranjangService {
 
                 Keranjang keranjang = new Keranjang();
                 keranjang.setNama_barang(barang.getNama_barang());
+                keranjang.setLink_gambar(barang.getLink_gambar());
                 keranjang.setJumlah(1);
                 keranjang.setHarga_barang(barang.getHarga_barang());
                 return keranjangtRepo.save(keranjang);
@@ -37,6 +45,16 @@ public class KeranjangService {
             }
         } else {
             throw new RuntimeException("Barang dengan ID " + barangId + " tidak ditemukan");
+        }
+    }
+    public Map<String, Boolean> delete(Long id){
+        try {
+            keranjangtRepo.deleteById(id);
+            Map<String , Boolean> map = new HashMap<>();
+            map.put("Deleted", true);
+            return map;
+        } catch (Exception e){
+            return null;
         }
     }
 }

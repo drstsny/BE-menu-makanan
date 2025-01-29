@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/barang")
-@CrossOrigin(origins = "http://localhost:5175")
+@CrossOrigin(origins = "http://localhost:5173")
 public class BarangController {
     @Autowired
     private BarangService barangService;
@@ -24,8 +25,8 @@ public class BarangController {
         return barangService.add(ad);
     }
 
-    @GetMapping ("/{id}")
-    public Barang getById(@PathVariable("id") Long id ) {
+    @GetMapping("/{id}")
+    public Barang getById(@PathVariable("id") Long id) {
         return barangService.getById(id);
     }
 
@@ -55,7 +56,7 @@ public class BarangController {
     }
 
     @GetMapping("/makananRingan")
-    public  List<Barang> getAllMakanan_ringan() {
+    public List<Barang> getAllMakanan_ringan() {
         return barangService.getAllMakanan_ringan();
     }
 
@@ -79,16 +80,16 @@ public class BarangController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Terjadi kesalahan pada server.");
         }
     }
+
     @PutMapping("/{id}")
     public Barang edit(@PathVariable("id") Long id, @RequestBody Barang tugas) {
         return barangService.edit(id, tugas);
     }
 
-    @PostMapping("/{BarangId}")
-
 
     @DeleteMapping("/api/barang/{id}")
-    public Map<String, Boolean> delete(@PathVariable("id")  Long id) {
-        return  barangService.delete(id);
+    public Map<String, Boolean> delete(@PathVariable("id") Long id) {
+        return barangService.delete(id);
     }
+
 }
