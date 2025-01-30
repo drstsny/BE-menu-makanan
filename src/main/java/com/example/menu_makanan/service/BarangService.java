@@ -60,9 +60,9 @@ public class BarangService {
 
     public List<Barang> getBarangByNama_barang(String nama_barang) {
         if (nama_barang == null || nama_barang.isEmpty()) {
-            return barangRepo.findAll(); // Jika nama_barang kosong, ambil semua data
+            return barangRepo.findAll();
         }
-        return barangRepo.findByNama_barang(nama_barang); // Pencarian case-insensitive
+        return barangRepo.findByNama_barang(nama_barang);
     }
 
     public void buyBarang(Long id , int jumlah) {

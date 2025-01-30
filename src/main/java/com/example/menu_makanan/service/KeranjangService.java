@@ -24,6 +24,13 @@ public class KeranjangService {
         return keranjangtRepo.findAll();
     }
 
+    public List<Keranjang> getKeranjangByNama_barang(String nama_barang) {
+        if (nama_barang == null || nama_barang.isEmpty()) {
+            return keranjangtRepo.findAll();
+        }
+        return keranjangtRepo.findByNama_barang(nama_barang);
+    }
+
     public Keranjang addBarangToKeranjang(Long barangId) {
         Optional<Barang> optionalBarang = barangRepo.findById(barangId);
 
