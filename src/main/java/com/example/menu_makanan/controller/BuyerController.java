@@ -25,4 +25,9 @@ public class BuyerController {
     public List<Buyer> getAllBuyer() {
         return buyerService.getAllBuyer();
     }
+
+    @GetMapping("/{id}")
+    public Buyer getById(@PathVariable Long id) {
+        return buyerService.getById(id);
+    }
 }

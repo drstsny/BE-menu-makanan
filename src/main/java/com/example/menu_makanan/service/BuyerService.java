@@ -1,5 +1,6 @@
 package com.example.menu_makanan.service;
 
+import com.example.menu_makanan.exception.NotFoundException;
 import com.example.menu_makanan.model.Barang;
 import com.example.menu_makanan.model.Buyer;
 import com.example.menu_makanan.repository.BarangRepository;
@@ -34,5 +35,9 @@ public class BuyerService {
 
     public List<Buyer> getAllBuyer() {
         return buyerRepository.findAll();
+    }
+
+    public Buyer getById(Long id) {
+        return buyerRepository.findById(id).orElseThrow(() ->new NotFoundException("id not found"));
     }
 }
